@@ -52,7 +52,7 @@ class Auth extends MY_Controller {
         if (True === ($result = $this->_login_check())) {
            $this->_login();
            echo "session yang tersimpan".$this->session->userdata('id');
-          redirect('main/help', 'refresh');
+         // redirect('main/help', 'refresh');
         } else {
             $this->render('main', 'login', ['errors' => $result]);
         }

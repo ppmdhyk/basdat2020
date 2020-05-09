@@ -168,12 +168,12 @@ class Main extends MY_Controller {
 			return false;
 
 		// dbname should be safe, santanize anyway
-		$this->problem->test_db = $this->santanize_identifier("u6029100_sqljudge_problem_test");
-		$this->problem->judge_db = $this->santanize_identifier("u6029100_sqljudge_problem_judge");
+		$this->problem->test_db = $this->santanize_identifier("sqljudge_problem_test");
+		$this->problem->judge_db = $this->santanize_identifier("sqljudge_problem_judge");
         
         //tambahan dika
-        $this->problem->test_db_temp = $this->santanize_identifier("u6029100_sqljudge_problem_test_temp");
-		$this->problem->judge_db_temp = $this->santanize_identifier("u6029100_sqljudge_problem_judge_temp");
+        $this->problem->test_db_temp = $this->santanize_identifier("sqljudge_problem_test_temp");
+		$this->problem->judge_db_temp = $this->santanize_identifier("sqljudge_problem_judge_temp");
 
         //--------------
 
@@ -315,7 +315,7 @@ class Main extends MY_Controller {
 
 		// run correct answer with test user
 		try{
-		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'u6029100_sqljudging',  'sqljudgement');
+		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'testsql',  '');
 		}
 		catch(PDOException $e) {
 		
@@ -341,23 +341,24 @@ class Main extends MY_Controller {
 
 	private function getUserResult($sql, $judge_mode = false){
 		$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;
-	//	$temp_user = $this->createTempUser();
-	//	$temp_db = $this->createTempDatabase($template, $temp_user);
+		//$temp_user = $this->createTempUser();
+		//$temp_db = $this->createTempDatabase($template, $temp_user);
         $temp_db=$template;
-	//	$pdo = new PDO('mysql:host='.SQLJUDGE_DB_HOST.';dbname='.$temp_db, $temp_user, '');
+		
 		try{
-		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'u6029100_sqljudging',  'sqljudgement');
+		//$pdo = new PDO('mysql:host='.SQLJUDGE_DB_HOST.';dbname='.$temp_db, $temp_user, '');
+		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'testsql',  '');
 		}
 		catch(PDOException $e) {
-		
+			echo "<script>alert('Gagal di tambahkan!');history.go(-1);</script>";
 		    echo "pesan ".$e;
 		}
 	
 		$result = $this->getResult($pdo, $sql, $judge_mode);
 		$result->type = ($judge_mode)? 'judge' : 'test';
 
-	//	$this->dropDatabase($temp_db);
-	//	$this->dropUser($temp_user);
+		//$this->dropDatabase($temp_db);
+		//$this->dropUser($temp_user);
 
 		return $result;
 	}

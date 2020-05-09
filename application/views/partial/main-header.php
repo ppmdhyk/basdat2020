@@ -74,7 +74,7 @@ $(function () {
             alert('Waktu kurang 10 menit');
         } else if(totalSec <= 0){
             result="00:00:00";
-             <?php  session_destroy();?>
+             <?php // session_destroy();?>
         }
         else {
             elTimeRemains.text(result);
