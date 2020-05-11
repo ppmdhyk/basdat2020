@@ -6,7 +6,6 @@ class Main extends MY_Controller {
 
 	function __construct () {
 		parent::__construct();
-//echo "session yang tersimpan".$this->session->userdata('id');
 		if (! $this->id OR ! $this->isTesting) {
 		    
 			redirect('auth/logout','refresh');
@@ -103,7 +102,6 @@ class Main extends MY_Controller {
 
         $solved = $answer->is_correct == '1';
         $massage="problem id: ".$id." ";
-        //   echo "<script type='text/javascript'>alert('$massage');</script>";
       
         $this->render('main', 'problem', [
             'problem' => $problem,
@@ -119,24 +117,6 @@ class Main extends MY_Controller {
                 ->where('id', $this->id)
                 ->get()->row()->score
             ]);
-
-            // var_dump($this->problem->test_db);
-        
-//         $this->render('main', 'problem', [
-//             'problem' => $problem,
-// 			'answer' => $answer,
-// 			'query' => ($inputSQL) ? $inputSQL : $answer->answer,
-//             'solved' => $solved,
-// 			'result' => $result,
-// 			'test_schema' => $this->getTestSchema(),
-// 			'test_tables' => $this->getTestData(),
-// 			'test_result' => $this->getReferenceResultData(),
-//             'score' => $this->db->select('score')
-//                 ->from('students')
-//                 ->where('id', $this->id)
-//                 ->get()->row()->score
-//         ]);
-        
 	}
 
 	public function cleanUp(){
@@ -172,12 +152,8 @@ class Main extends MY_Controller {
 		// dbname should be safe, santanize anyway
 		$this->problem->test_db = $this->santanize_identifier("sqljudge_problem_test");
 		$this->problem->judge_db = $this->santanize_identifier("sqljudge_problem_judge");
-        
-        //tambahan dika
-      //  $this->problem->test_db_temp = $this->santanize_identifier("sqljudge_problem_test_temp");
-		//$this->problem->judge_db_temp = $this->santanize_identifier("sqljudge_problem_judge_temp");
-
-        //--------------
+		$this->problem->temp_db = $this->santanize_identifier($this->session->userdata('db_temp'));
+     
 
 		// auto load table names if not probided by question entry
 		if(!empty($this->problem->tables)){
@@ -230,7 +206,6 @@ class Main extends MY_Controller {
 		$result = array();
 		foreach ($this->problem->tables as $table) {
 			$from = "`{$this->problem->test_db}`.`$table`";
-// 			$from = "`u6029100_sqljudge_problem_test`.`$table`";
             $result[$table] = $this->db->select('*')->from($from)->get()->result();
 		}
 
@@ -297,77 +272,36 @@ class Main extends MY_Controller {
 
 	private function getReferenceResultData($judge_mode = false){
 	
-		$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;
-
-		// create test database
-		$temp_db = $this->createTempDatabase($template);
-		echo "temp_db: ".$temp_db;
-
-		// run correct answer with test user
-		echo 'mysql:host='.SQLJUDGE_DB_HOST.';dbname='.$temp_db.','. SQLJUDGE_DB_TEST_USER.','. SQLJUDGE_DB_TEST_PASS;
-		//$pdo = new PDO('mysql:host='.SQLJUDGE_DB_HOST.';dbname='.$temp_db, SQLJUDGE_DB_TEST_USER, SQLJUDGE_DB_TEST_PASS);
-		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'root',  '');
-		$result = $this->getResult($pdo, '', true);
-
-		// delete temp database
-		//$this->dropDatabase($temp_db);
-
-		return $result->data;
-	
-	/*	$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;
-
-      
+		$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;      
 		// create test database
 		$temp_db = $template;
-
 		// run correct answer with test user
 		try{
-		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'testsql',  '');
+		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, $this->db->username,  $this->db->password);
 		}
 		catch(PDOException $e) {
-		
+
 		    echo "pesan ".$e;
 		}
 		$result = $this->getResult($pdo, '', true);
 
-		// delete temp database
-	//	$this->dropDatabase($temp_db);
-       
-      //  echo "judge mode: ".$judge_mode."\n";
-      //  echo "template: ".$template."\n";
-      //  echo "host: ".SQLJUDGE_DB_HOST."\n";
-       // echo "user: ".SQLJUDGE_DB_TEST_USER."\n";
-      //  echo "pass: ".SQLJUDGE_DB_TEST_PASS."\n";
-
 		return $result->data;
-		
-		 
-	*/
-	
 	}
 
 	private function getUserResult($sql, $judge_mode = false){
-		$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;
 		
-		
-		$temp_user = $this->createTempUser();
-		$temp_db = $this->createTempDatabase($template, $temp_user);
-        //$temp_db=$template;
+        $temp_db=$this->problem->temp_db;
 		echo "temp_db: ".$temp_db;
 		try{
-		//$pdo = new PDO('mysql:host='.SQLJUDGE_DB_HOST.';dbname='.$temp_db, $temp_user, '');
-		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'root',  '');
+			$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'testsql',  '');
 		}
 		catch(PDOException $e) {
-		//	echo "<script>alert('Gagal di tambahkan!');history.go(-1);</script>";
 		    echo "pesan ".$e;
 		}
 	
 		$result = $this->getResult($pdo, $sql, $judge_mode);
 		$result->type = ($judge_mode)? 'judge' : 'test';
 
-		//$this->dropDatabase($temp_db);
-		//$this->dropUser($temp_user);
 
 		return $result;
 	}

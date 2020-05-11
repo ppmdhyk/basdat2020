@@ -9,14 +9,14 @@
         <span class="subtitle">SISTEM PENJURIAN SQL BERBASIS DARING</span>
     </div>
     <div class="logininput">
-        <input class="form-control" id="stdid" name="stdid" autofocus placeholder="Masukkan username anda" required>
-        <input type="password" class="form-control" id="email" name="email" placeholder="Masukkan password anda" required>
         <?php if ($this->session->flashdata('err')): ?>
         <div class="loginalert"><?= $this->session->flashdata('err') ?></div>
         <?php endif; ?>
         <?php if (!empty($errors)): ?>
         <div class="loginalert"><?= $errors ?></div>
         <?php endif; ?>
+        <input class="form-control" id="stdid" name="stdid" autofocus placeholder="Masukkan username anda" required>
+        <input type="password" class="form-control" id="email" name="email" placeholder="Masukkan password anda" required>
         <button type="submit">Masuk</button>
     </div>
     <div class="loginversion">

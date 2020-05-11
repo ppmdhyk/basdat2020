@@ -47,13 +47,13 @@ class Auth extends MY_Controller {
     public function login () {
         if ($this->loggedIn) {
            
-          // redirect('main/help');
+          redirect('main/help');
         }
 
         if (True === ($result = $this->_login_check())) {
            $this->_login();
            echo "session yang tersimpan".$this->session->userdata('id');
-          // redirect('main/help', 'refresh');
+          redirect('main/help', 'refresh');
         } else {
             $this->render('newmain', 'newlogin', ['errors' => $result]);
         }
@@ -65,6 +65,7 @@ class Auth extends MY_Controller {
         redirect('auth/login');
     }
 
+   
 
     public function prepare_first ($id){
         
@@ -78,22 +79,16 @@ class Auth extends MY_Controller {
 			if($this->db->query("CREATE DATABASE $dbname"))
             $this->session->set_userdata('db_temp', $dbname);
             $flag=1;
-            echo "berhasil membuat database". $dbname;
            try{
-            $pdo = new PDO($this->db->dsn,$this->db->username,$this->db->password);
-            
-            
-            $filePath = base_url()."dbsqltemp.sql";
-           
-            echo "filepath: ".$filepath;
-           
-            $res = importSqlFile($pdo, $filePath);
-            echo "masuk flag";
-            if ($res === false) {
-                die('ERROR');
-                echo "database gak keisi";
+            $pdo = new PDO('mysql:host=localhost;dbname='.$dbname,$this->db->username,$this->db->password);
+            $filepath = base_url()."dbsqltemp.sql";           
+            $res = $this->importSQLfile($pdo,$filepath);
+         
+            if ($res == false) {
+               die('ERROR');     
             }
-            }catch(PDOException $e) {
+            }
+            catch(PDOException $e) {
                   echo "pesan ".$e;
                 }
                 break;
@@ -104,61 +99,67 @@ class Auth extends MY_Controller {
 
     }
 
-    function importSqlFile($pdo, $sqlFile, $tablePrefix = null, $InFilePath = null)
-{
-    try {
+    private function importSQLfile($pdo, $sqlFile){
+       
         
-        // Enable LOAD LOCAL INFILE
-        $pdo->setAttribute(\PDO::MYSQL_ATTR_LOCAL_INFILE, true);
+        var_dump($pdo);
         
-        $errorDetect = false;
-        
-        // Temporary variable, used to store current query
-        $tmpLine = '';
-        
-        // Read in entire file
-        $lines = file($sqlFile);
-        
-        // Loop through each line
-        foreach ($lines as $line) {
-            // Skip it if it's a comment
-            if (substr($line, 0, 2) == '--' || trim($line) == '') {
-                continue;
-            }
+        try {
+          
+            // Enable LOAD LOCAL INFILE
+            $pdo->setAttribute(\PDO::MYSQL_ATTR_LOCAL_INFILE, true);
             
-            // Read & replace prefix
-            $line = str_replace(['<<prefix>>', '<<InFilePath>>'], [$tablePrefix, $InFilePath], $line);
+            $errorDetect = false;
             
-            // Add this line to the current segment
-            $tmpLine .= $line;
+            // Temporary variable, used to store current query
+            $tmpLine = '';
             
-            // If it has a semicolon at the end, it's the end of the query
-            if (substr(trim($line), -1, 1) == ';') {
-                try {
-                    // Perform the Query
-                    $pdo->exec($tmpLine);
-                } catch (\PDOException $e) {
-                    echo "<br><pre>Error performing Query: '<strong>" . $tmpLine . "</strong>': " . $e->getMessage() . "</pre>\n";
-                    $errorDetect = true;
+            // Read in entire file
+            $lines = file($sqlFile);
+           
+            // Loop through each line
+            foreach ($lines as $line) {
+                
+                // Skip it if it's a comment
+                if (substr($line, 0, 2) == '--' || trim($line) == '') {
+                    continue;
                 }
                 
-                // Reset temp variable to empty
-                $tmpLine = '';
+                // Read & replace prefix
+                $line = str_replace(['<<prefix>>', '<<InFilePath>>'], [$tablePrefix, $InFilePath], $line);
+                
+                // Add this line to the current segment
+                $tmpLine .= $line;
+                echo "\n".$tmpLine;
+                
+                // If it has a semicolon at the end, it's the end of the query
+                if (substr(trim($line), -1, 1) == ';') {
+                    try {
+                        // Perform the Query
+                        $pdo->exec($tmpLine);
+                    } catch (\PDOException $e) {
+                       // echo "<br><pre>Error performing Query: '<strong>" . $tmpLine . "</strong>': " . $e->getMessage() . "</pre>\n";
+                        $errorDetect = true;
+                    }
+                    
+                    // Reset temp variable to empty
+                    $tmpLine = '';
+                }
             }
-        }
-        
-        // Check if error is detected
-        if ($errorDetect) {
+            
+            // Check if error is detected
+            if ($errorDetect) {
+                return false;
+            }
+            
+        } catch (\Exception $e) {
+          //  echo "<br><pre>Exception => " . $e->getMessage() . "</pre>\n";
             return false;
         }
         
-    } catch (\Exception $e) {
-        echo "<br><pre>Exception => " . $e->getMessage() . "</pre>\n";
-        return false;
+        return true;
     }
     
-    return true;
-}
 
 }
 /* End of file auth.php */
