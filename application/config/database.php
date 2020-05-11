@@ -6,7 +6,7 @@ $active_record = TRUE;
 /*
  * Database for system
  */
-
+$db['default']['dsn']='mysql:host=localhost;dbname=sqljudge_sys';
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
@@ -26,6 +26,7 @@ $db['default']['stricton'] = FALSE;
 /*
  * Database for scoring student's answer
  */
+$db['judge']['dsn']='mysql:host=localhost;dbname=sqljudge_problem_judge';
 $db['judge']['hostname'] = 'localhost';
 $db['judge']['username'] = 'root';
 $db['judge']['password'] = '';
@@ -45,6 +46,7 @@ $db['judge']['stricton'] = FALSE;
 /*
  * Database for testing student's answer
  */
+$db['test']['dsn']='mysql:host=localhost;dbname=sqljudge_problem_test';
 $db['test']['hostname'] = 'localhost';
 $db['test']['username'] = 'root';
 $db['test']['password'] = '';

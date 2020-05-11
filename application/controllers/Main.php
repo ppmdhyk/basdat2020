@@ -41,7 +41,9 @@ class Main extends MY_Controller {
             'problems' => $problems,
             'answers' => $corrects,
             'score' => $score
-        ]);
+		]);
+		
+		
 	}
 
 	public function problem ($id) {
@@ -172,8 +174,8 @@ class Main extends MY_Controller {
 		$this->problem->judge_db = $this->santanize_identifier("sqljudge_problem_judge");
         
         //tambahan dika
-        $this->problem->test_db_temp = $this->santanize_identifier("sqljudge_problem_test_temp");
-		$this->problem->judge_db_temp = $this->santanize_identifier("sqljudge_problem_judge_temp");
+      //  $this->problem->test_db_temp = $this->santanize_identifier("sqljudge_problem_test_temp");
+		//$this->problem->judge_db_temp = $this->santanize_identifier("sqljudge_problem_judge_temp");
 
         //--------------
 
@@ -260,6 +262,7 @@ class Main extends MY_Controller {
 		while(1){
 			$dbname = uniqid($prefix);
 			if($this->db->query("CREATE DATABASE $dbname"))
+			echo "berhasil membuat database". $dbname;
 				break;			
 		}
 
@@ -284,6 +287,7 @@ class Main extends MY_Controller {
 	}
 
 	private function dropDatabase($dbname){
+		echo "drop ".$dbname;
 		return $this->db->query("DROP DATABASE $dbname;");
 	}
 
@@ -292,22 +296,25 @@ class Main extends MY_Controller {
 	}
 
 	private function getReferenceResultData($judge_mode = false){
-	/*
+	
 		$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;
 
 		// create test database
 		$temp_db = $this->createTempDatabase($template);
+		echo "temp_db: ".$temp_db;
 
 		// run correct answer with test user
-		$pdo = new PDO('mysql:host='.SQLJUDGE_DB_HOST.';dbname='.$temp_db, SQLJUDGE_DB_TEST_USER, SQLJUDGE_DB_TEST_PASS);
+		echo 'mysql:host='.SQLJUDGE_DB_HOST.';dbname='.$temp_db.','. SQLJUDGE_DB_TEST_USER.','. SQLJUDGE_DB_TEST_PASS;
+		//$pdo = new PDO('mysql:host='.SQLJUDGE_DB_HOST.';dbname='.$temp_db, SQLJUDGE_DB_TEST_USER, SQLJUDGE_DB_TEST_PASS);
+		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'root',  '');
 		$result = $this->getResult($pdo, '', true);
 
 		// delete temp database
-		$this->dropDatabase($temp_db);
+		//$this->dropDatabase($temp_db);
 
 		return $result->data;
-	*/
-		$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;
+	
+	/*	$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;
 
       
 		// create test database
@@ -335,22 +342,24 @@ class Main extends MY_Controller {
 		return $result->data;
 		
 		 
-	
+	*/
 	
 	}
 
 	private function getUserResult($sql, $judge_mode = false){
 		$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;
-		//$temp_user = $this->createTempUser();
-		//$temp_db = $this->createTempDatabase($template, $temp_user);
-        $temp_db=$template;
 		
+		
+		$temp_user = $this->createTempUser();
+		$temp_db = $this->createTempDatabase($template, $temp_user);
+        //$temp_db=$template;
+		echo "temp_db: ".$temp_db;
 		try{
 		//$pdo = new PDO('mysql:host='.SQLJUDGE_DB_HOST.';dbname='.$temp_db, $temp_user, '');
-		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'testsql',  '');
+		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'root',  '');
 		}
 		catch(PDOException $e) {
-			echo "<script>alert('Gagal di tambahkan!');history.go(-1);</script>";
+		//	echo "<script>alert('Gagal di tambahkan!');history.go(-1);</script>";
 		    echo "pesan ".$e;
 		}
 	
@@ -422,7 +431,25 @@ class Main extends MY_Controller {
 	}
 
     public function help () {
-        $this->render('main', 'help', []);
+		$this->render('main', 'help', []);
+		// echo "\ndns :".$this->db->dsn;
+		// echo "\nusername :".$this->db->username;
+		// echo "\npass :".$this->db->password;
+		// echo "\ndatabase :".$this->db->database;
+
+		// $host='localhost';
+		// $dbname='sqljudge_sys';
+		// $user='root';
+		// $pass='';
+		// try {
+		// 	# MS SQL Server and Sybase with PDO_DBLIB   
+		// 	# MySQL with PDO_MYSQL
+		// 	$DBH = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+		 
+		//   }
+		//   catch(PDOException $e) {
+		// 	  echo $e->getMessage();
+		//   }
     }
 }
 /* End of file main.php */

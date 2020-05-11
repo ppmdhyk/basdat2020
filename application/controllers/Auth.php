@@ -38,7 +38,8 @@ class Auth extends MY_Controller {
             $this->session->set_userdata('lock_hash', sha1(uniqid()));
 			$this->db->where('id', $id)
 				->where('lock_hash', '')
-				->update('students', ['lock_hash' => $this->session->userdata('lock_hash')]);
+                ->update('students', ['lock_hash' => $this->session->userdata('lock_hash')]);
+            $this->prepare_first($id);
         }
        
     }
@@ -52,7 +53,7 @@ class Auth extends MY_Controller {
         if (True === ($result = $this->_login_check())) {
            $this->_login();
            echo "session yang tersimpan".$this->session->userdata('id');
-         // redirect('main/help', 'refresh');
+           redirect('main/help', 'refresh');
         } else {
             $this->render('main', 'login', ['errors' => $result]);
         }
@@ -63,6 +64,42 @@ class Auth extends MY_Controller {
         $this->session->sess_destroy();
         redirect('auth/login');
     }
+
+
+    public function prepare_first ($id){
+        
+        //membuat database untuk user
+        $prefix="sqljudge_temp_".$id."_";
+        $dbname=uniqid($prefix);
+        $flag=0;
+
+        while(1){
+			$dbname = uniqid($prefix);
+			if($this->db->query("CREATE DATABASE $dbname"))
+            $this->session->set_userdata('db_temp', $dbname);
+            $flag=1;
+            echo "berhasil membuat database". $dbname;
+           try{
+            $pdo = new PDO($this->db->dsn,$this->db->username,$this->db->password);
+            $filePath = base_url('dbsqltemp.sql');
+            echo "filepath: ".$filepath;
+            $res = importSqlFile($pdo, $filePath);
+            echo "masuk flag";
+            if ($res === false) {
+                die('ERROR');
+                echo "database gak keisi";
+            }
+            }catch(PDOException $e) {
+                  echo "pesan ".$e;
+                }
+                break;
+            		
+        }
+        
+
+
+    }
+
 }
 /* End of file auth.php */
 /* Location: ./application/controllers/auth.php */
