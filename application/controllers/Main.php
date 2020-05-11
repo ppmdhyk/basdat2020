@@ -37,7 +37,7 @@ class Main extends MY_Controller {
             ->where('id', $this->id)
             ->get()->row()->score;
 
-        $this->render('main', 'main', [
+        $this->render('pagemain', 'newmain', [
             'problems' => $problems,
             'answers' => $corrects,
             'score' => $score
@@ -431,7 +431,9 @@ class Main extends MY_Controller {
 	}
 
     public function help () {
-		$this->render('main', 'help', []);
+		$this->render('pagemain', 'newhelp', [
+			'score' => $score
+		]);
 		// echo "\ndns :".$this->db->dsn;
 		// echo "\nusername :".$this->db->username;
 		// echo "\npass :".$this->db->password;

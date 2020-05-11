@@ -12,7 +12,7 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="<?= base_url('css/bootstrap-theme.min.css') ?>">
-
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/codemirror.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/codemirror/show-hint.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/codemirror/sqljudge.css') ?>">
@@ -22,14 +22,8 @@
     
     <script src="<?= base_url('js/jquery.min.js') ?>"></script>
 </head>
-<body>
-    <div id="container" class="container-fluid">
-        <?= $body ?>
-    </div>
-    <div class="container-fluid">
-        <hr>
-        Created by <a target="_blank" href="http://www.ensky.tw">EnskyLin</a> and modified by <a target="_blank" href="http://ruangtunggu.id">dhyk</a>
-    </div>
+<body class="login_body">
+    <?= $body ?>
     <script src="<?= base_url('js/bootstrap.min.js') ?>"></script>
     <script type="text/javascript" src="<?= base_url('js/codemirror.js'); ?>"></script>
     <script type="text/javascript" src="<?= base_url('js/codemirror/sql.js'); ?>"></script>
