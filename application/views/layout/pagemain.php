@@ -18,17 +18,13 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/codemirror/sqljudge.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/main.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/datatable.css') ?>">
-    <link rel="stylesheet" type="text/css" href="<?= base_url('css/new.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('css/page.css') ?>">
     
     <script src="<?= base_url('js/jquery.min.js') ?>"></script>
 </head>
-<body>
-    <div id="container" class="container-fluid">
+<body class="page_body">
+    <div class="page_container">
         <?= $body ?>
-    </div>
-    <div class="container-fluid">
-        <hr>
-        Created by <a target="_blank" href="http://www.ensky.tw">EnskyLin</a> and modified by <a target="_blank" href="http://ruangtunggu.id">dhyk</a>
     </div>
     <script src="<?= base_url('js/bootstrap.min.js') ?>"></script>
     <script type="text/javascript" src="<?= base_url('js/codemirror.js'); ?>"></script>
