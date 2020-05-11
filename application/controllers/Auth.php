@@ -81,7 +81,7 @@ class Auth extends MY_Controller {
             echo "berhasil membuat database". $dbname;
            try{
             $pdo = new PDO($this->db->dsn,$this->db->username,$this->db->password);
-            $filePath = base_url('dbsqltemp.sql');
+            $filepath = base_url()."dbsqltemp.sql";
             echo "filepath: ".$filepath;
             $res = importSqlFile($pdo, $filePath);
             echo "masuk flag";
