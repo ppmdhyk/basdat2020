@@ -27,6 +27,11 @@
     <div class="page_container">
         <?= $body ?>
     </div>
+    <div class="loginfooter">
+        <img src="<?php echo base_url()?>/img/hub polin 1.png" class="logofooter">
+        <br>
+        <span class="footer">@2020 HUB POLINEMA</span>
+    </div>
     <script src="<?= base_url('js/bootstrap.min.js') ?>"></script>
     <script type="text/javascript" src="<?= base_url('js/codemirror.js'); ?>"></script>
     <script type="text/javascript" src="<?= base_url('js/codemirror/sql.js'); ?>"></script>

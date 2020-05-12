@@ -15,8 +15,8 @@
         <?php if (!empty($errors)): ?>
         <div class="loginalert"><?= $errors ?></div>
         <?php endif; ?>
-        <input class="form-control" id="stdid" name="stdid" autofocus placeholder="Masukkan username anda" required>
-        <input type="password" class="form-control" id="email" name="email" placeholder="Masukkan password anda" required>
+        <input class="form-control" id="stdid" name="stdid" autofocus placeholder="Username" required>
+        <input type="password" class="form-control" id="email" name="email" placeholder="Password" required>
         <button type="submit">Masuk</button>
     </div>
     <div class="loginversion">
@@ -24,7 +24,8 @@
     </div>
 </div>
 </form>
-<!-- <div class="loginfooter">
+<div class="loginfooter">
         <img src="<?php echo base_url()?>/img/hub polin 1.png" class="logofooter">
+        <br>
         <span class="footer">@2020 HUB POLINEMA</span>
-</div> -->
+</div>
