@@ -40,6 +40,7 @@ class Auth extends MY_Controller {
 				->where('lock_hash', '')
                 ->update('students', ['lock_hash' => $this->session->userdata('lock_hash')]);
             $this->prepare_first($id);
+            $this->randomProblem($id);
         }
        
     }
@@ -47,13 +48,13 @@ class Auth extends MY_Controller {
     public function login () {
         if ($this->loggedIn) {
            
-          redirect('main/help');
+        //  redirect('main/help');
         }
 
         if (True === ($result = $this->_login_check())) {
            $this->_login();
            echo "session yang tersimpan".$this->session->userdata('id');
-          redirect('main/help', 'refresh');
+           redirect('main/help', 'refresh');
         } else {
             $this->render('newmain', 'newlogin', ['errors' => $result]);
         }
@@ -158,6 +159,36 @@ class Auth extends MY_Controller {
         }
         
         return true;
+    }
+
+    private function randomProblem($id){
+
+      //  echo "problem";
+        $problems = $this->db->query("SELECT distinct(verifier) as kategori FROM problems");
+        $id_problem = array();
+        $satu=0;
+        foreach($problems->result_array() as $i):
+            $var =$i['kategori'];
+            $problem_ketegori=$this->db->query("SELECT id FROM problems where verifier='".$var."'");
+            $id_problem=null;
+            $dua=0;
+            foreach($problem_ketegori->result_array() as $j):
+                $id_problem[$satu][$dua]=$j['id'];
+             //   echo "\nisi array".$id_problem[$satu][$dua];
+                $dua++;
+            endforeach;
+            $array=null;
+           // var_dump($id_problem[$satu]);
+            $array=array_rand($id_problem[$satu],2);
+            //echo "\nrandom:".$array[0]." --- ".$array[1];
+                for($b=0; $b<sizeof($array); $b++){
+                   // echo "insert into random_problems values('','".$id."','".$array[$b]."');\n";
+                    $this->db->query("insert into random_problems values('','".$id."','".$id_problem[$satu][$array[$b]]."');");
+                }
+            $satu++;
+        endforeach;
+
+
     }
     
 
