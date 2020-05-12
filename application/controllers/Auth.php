@@ -48,12 +48,11 @@ class Auth extends MY_Controller {
     public function login () {
         if ($this->loggedIn) {
            
-        //  redirect('main/help');
+         redirect('main/help');
         }
 
         if (True === ($result = $this->_login_check())) {
            $this->_login();
-           echo "session yang tersimpan".$this->session->userdata('id');
            redirect('main/help', 'refresh');
         } else {
             $this->render('newmain', 'newlogin', ['errors' => $result]);
@@ -68,7 +67,7 @@ class Auth extends MY_Controller {
 
    
 
-    public function prepare_first ($id){
+    private function prepare_first ($id){
         
         //membuat database untuk user
         $prefix="sqljudge_temp_".$id."_";
@@ -131,7 +130,7 @@ class Auth extends MY_Controller {
                 
                 // Add this line to the current segment
                 $tmpLine .= $line;
-                echo "\n".$tmpLine;
+               // echo "\n".$tmpLine;
                 
                 // If it has a semicolon at the end, it's the end of the query
                 if (substr(trim($line), -1, 1) == ';') {
@@ -174,15 +173,15 @@ class Auth extends MY_Controller {
             $dua=0;
             foreach($problem_ketegori->result_array() as $j):
                 $id_problem[$satu][$dua]=$j['id'];
-             //   echo "\nisi array".$id_problem[$satu][$dua];
+            
                 $dua++;
             endforeach;
             $array=null;
-           // var_dump($id_problem[$satu]);
+       
             $array=array_rand($id_problem[$satu],2);
-            //echo "\nrandom:".$array[0]." --- ".$array[1];
+           
                 for($b=0; $b<sizeof($array); $b++){
-                   // echo "insert into random_problems values('','".$id."','".$array[$b]."');\n";
+                  
                     $this->db->query("insert into random_problems values('','".$id."','".$id_problem[$satu][$array[$b]]."');");
                 }
             $satu++;
@@ -191,6 +190,22 @@ class Auth extends MY_Controller {
 
     }
     
+    public function getready(){
+        
+        $startTime = $this->setting->get('start_time');
+        $endTime = $this->setting->get('end_time');
+        $currentTime = date("Y/M/d H:i:s");
+        $this->session->set_userdata('ready', true);
+        var_dump($startTime);
+        var_dump($endTime);
+        var_dump($currentTime);
+        
+       if((strtotime($currentTime)>=strtotime($startTime))&&(strtotime($currentTime)<=strtotime($endTime))){
+           echo "boleh kerja";
+       }else{
+           echo "diluar waktu";
+       }
+    }
 
 }
 /* End of file auth.php */

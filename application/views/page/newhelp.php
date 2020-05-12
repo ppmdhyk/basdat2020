@@ -19,6 +19,8 @@
         <li>Jika waktu telah habis, maka jawaban otomatis tidak dapat diubah kembali (Selesai).</li>
     </ol>
     <div style="text-align:center"><a href="<?= site_url('main') ?>" class="ready">Mulai</a></div>
+    <?= form_open('auth/getready', ['class'=>'form', 'method' => 'post']) ?>
+    <button type="submit" class="ready">Mulai</button>
 </div>
 <!-- <?= $this->setting->get('help') ?> -->
    
