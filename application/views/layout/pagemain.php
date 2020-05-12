@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/main.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/datatable.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/page.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('css/jquery.dataTables.min.css') ?>">
     
     <script src="<?= base_url('js/jquery.min.js') ?>"></script>
 </head>
