@@ -1,4 +1,4 @@
-<?php $this->load->view('partial/new-main-header', ['score' => $score]); ?>
+<?php $this->load->view('partial/page-main-header', ['score' => $score]); ?>
 <div class="helpmain">
     <div class="row" style="padding-top:0.5%; width:100%;padding-left:30px">
         <div class="col-md-6">

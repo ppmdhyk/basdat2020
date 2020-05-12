@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="col-md-5" style="padding-top:1.2%">
-        <span class="mainlabel">WAKTU SERVER : </span><span class="sublabel"> 22/05/2020 12:00:00</span>
+        <span class="mainlabel">SISA WAKTU : </span><span class="sublabel"> 12:00:00</span>
     </div>
     <div class="col-md-2" style="padding-top:1.2%; text-align:center">
         <a href="<?= site_url('auth/logout') ?>" class="pagelogout"><span style="font-family: Roboto;font-style: normal;font-weight: bold;color: #FFFFFF;">Keluar</span></a>

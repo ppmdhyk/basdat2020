@@ -17,10 +17,10 @@
     padding-left: 56px;
 }
 
-img.logo{
-    width: 60px;
+/* img.logo{
+    width: 400px;
     height:60px
-}
+} */
 
 .pagelogout{
     background: #AE3939;
@@ -121,6 +121,7 @@ a.ready{
     border: 1px solid #DEDEDE;
     box-sizing: border-box;
     border-radius: 20px;
+    margin-top: 1%;
     padding: 10px 150px 12px;
     width: 40%;
     display: inline-block;
