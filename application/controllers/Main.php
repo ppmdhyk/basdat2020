@@ -19,7 +19,15 @@ class Main extends MY_Controller {
             ->from('problems P')
             ->join('(SELECT problem_id, SUM(is_correct) AS correct, COUNT(*) AS total_submit FROM student_answers GROUP BY problem_id) AS PA', 'P.id = PA.problem_id', 'LEFT')
             ->order_by('order')
-            ->get()->result();
+		    ->get()->result();
+		
+		// $problems = $this->db->select('P.*, PA.correct, PA.total_submit')
+		// ->from('problems P')
+		// ->join('(SELECT problem_id, SUM(is_correct) AS correct, COUNT(*) AS total_submit FROM student_answers GROUP BY problem_id) AS PA', 'P.id = PA.problem_id', 'LEFT')
+		// ->join('random_problems R','R.id_problem=P.id','LEFT')
+		// ->where('R.id_student',$this->id,)
+		// ->order_by('order')
+		// ->get()->result();
         
         $answers = $this->db->select('*')
             ->from('student_answers')
