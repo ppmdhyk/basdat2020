@@ -87,25 +87,25 @@ span.sublabel{
 .problemstatus span.belum{
     color: white;
     background: #a94442;
-    width: 100%;
+    width: 40%;
     padding: 4px 16px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid transparent;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .problemstatus span.sukses{
     color: white;
     background: #4D9BE2;
-    width: 100%;
+    width: 40%;
     padding: 4px 16px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid transparent;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .helpmain{
@@ -150,12 +150,6 @@ a.done{
     color: #FFFFFF;
 }
 
-
-.problemcontainer{
-    padding-left: 20px;
-    padding-right: 20px;   
-}
-
 /* .maintable{
     margin-left: 50PX;
     width: 90%;
@@ -188,8 +182,17 @@ a.done{
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
-    font-size: 20px;
-    line-height: 14px;
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.problemspansubtitle{ 
+    padding-left:5px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 12px;
 }
 
 .problemcontainer{
@@ -198,11 +201,58 @@ a.done{
     box-sizing: border-box;
     border-radius: 20px;
     width: 90%;
-    height: 10%;
+    height: 13%;
     display: inline-block;
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
     line-height: 14px;
+    padding: 10px 0 10px 15px;
+    overflow-y: auto;
+}
+
+.problemlongcontainer{
+    margin: 10px 0 0 30px;
+    border: 1px solid #DEDEDE;
+    box-sizing: border-box;
+    border-radius: 20px;
+    width: 90%;
+    height: 20%;
+    display: inline-block;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 10px 0 10px 15px;
+    overflow-y: auto;
+}
+
+.textareaproblem{
+    margin: 10px 0 0 30px;
+    border: 1px solid #DEDEDE;
+    box-sizing: border-box;
+    border-radius: 20px;
+    width: 90%;
+    height: 20%;
+    display: inline-block;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 10px 0 10px 15px;
+    overflow-y: auto;
+}
+
+.problemrow{
+    margin: 15px 0 0 0;
+}
+
+.problembuttondiv{
+   width: auto;
+   height: auto;
+   text-align: right;
+   padding-right: 50px;
 }
