@@ -3,20 +3,33 @@
 }
 
 .logincontainer{
-  margin: auto;
-  width: 30%;
+  margin-left: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+  width: 28%;
   background: #FFFFFF;
   border-radius: 20px;
+  margin-top: 2%;
+}
+
+.loginfooter{
+    text-align: center;
+    margin-top: 8%;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
 }
 
 .imagecontainer{
     text-align: center;
-    padding: 20px 0 10px 0;
+    padding: 20px 0 0 0;
 }
 
 img.logo{
-    width: 100px;
-    height:100px
+    width: 80px;
+    height:80px
 }
 
 .loginheader{
@@ -28,10 +41,10 @@ span.title{
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
-    font-size: 36px;
+    font-size: 32px;
     line-height: 42px;
     padding-bottom: 10px;
-    word-spacing: 0.3px;
+    word-spacing: 0.6px;
     color: #000000;
 }
 
@@ -57,10 +70,13 @@ input.form-control {
     border: 1px solid #CDCDCD;
     box-sizing: border-box;
     border-radius: 20px;
-    width: 80%;
+    width: 65%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
+    font-family: Roboto;
+    font-size: 14px;
+    line-height: 18px;
 }
 
 button[type=submit]{
@@ -68,15 +84,15 @@ button[type=submit]{
     border: 1px solid #DEDEDE;
     box-sizing: border-box;
     border-radius: 20px;
-    width: 80%;
+    width: 65%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
-    font-size: 18px;
-    line-height: 21px;
+    font-size: 14px;
+    line-height: 18px;
     color: #FFFFFF;
 }
 
@@ -99,10 +115,15 @@ button[type=submit]{
     background-color: #f2dede;
     border-color: #ebccd1;
     /* box-sizing: border-box; */
-    width: 80%;
+    width: 65%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid transparent;
     border-radius: 20px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 18px;
 }

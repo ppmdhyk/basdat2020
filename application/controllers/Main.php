@@ -111,7 +111,7 @@ class Main extends MY_Controller {
         $solved = $answer->is_correct == '1';
         $massage="problem id: ".$id." ";
       
-        $this->render('main', 'problem', [
+        $this->render('pagemain', 'newproblem', [
             'problem' => $problem,
             'answer' => $answer,
             'query' => ($inputSQL) ? $inputSQL : $answer->answer,

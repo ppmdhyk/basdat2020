@@ -20,12 +20,18 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/main.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/datatable.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= base_url('css/page.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('css/jquery.dataTables.min.css') ?>">
     
     <script src="<?= base_url('js/jquery.min.js') ?>"></script>
 </head>
 <body class="page_body">
     <div class="page_container">
         <?= $body ?>
+    </div>
+    <div class="loginfooter">
+        <img src="<?php echo base_url()?>/img/hub polin 1.png" class="logofooter">
+        <br>
+        <span class="footer">@2020 HUB POLINEMA</span>
     </div>
     <script src="<?= base_url('js/bootstrap.min.js') ?>"></script>
     <script type="text/javascript" src="<?= base_url('js/codemirror.js'); ?>"></script>

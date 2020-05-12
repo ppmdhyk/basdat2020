@@ -3,6 +3,7 @@
     <div class="row" style="padding-top:0.5%; width:100%;padding-left:30px">
         <div class="announcement">Announcements: <?= $this->setting->get('announcement') ?></div>
     </div>
+    <br>
     <strong style="padding-left: 1.5%;">HAL-HAL YANG PERLU DIPERHATIKAN !</strong>
     <br>
     <br>
@@ -17,7 +18,6 @@
         <li>Tekan tombol <strong>“Selesai”</strong> untuk menyatakan bahwa pengerjaan soal telah selesai dan jawaban tidak dapat diubah kembali.</li>
         <li>Jika waktu telah habis, maka jawaban otomatis tidak dapat diubah kembali (Selesai).</li>
     </ol>
-    <br>
     <div style="text-align:center"><a href="<?= site_url('main') ?>" class="ready">Mulai</a></div>
 </div>
 <!-- <?= $this->setting->get('help') ?> -->
