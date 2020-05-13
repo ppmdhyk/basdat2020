@@ -71,6 +71,7 @@ class Main extends MY_Controller {
             
 		}
 
+		echo "masuk problem :".$id."\n";
 		$problem = $this->problem;
 		$inputSQL = $this->input->post('query');
 
