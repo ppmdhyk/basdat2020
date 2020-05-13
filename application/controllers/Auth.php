@@ -48,12 +48,12 @@ class Auth extends MY_Controller {
     public function login () {
         if ($this->loggedIn) {
            
-         redirect('main/help');
+        redirect('main/help');
         }
 
         if (True === ($result = $this->_login_check())) {
            $this->_login();
-           redirect('main/help', 'refresh');
+          redirect('main/help', 'refresh');
         } else {
             $this->render('newmain', 'newlogin', ['errors' => $result]);
         }
@@ -162,7 +162,7 @@ class Auth extends MY_Controller {
 
     private function randomProblem($id){
 
-      //  echo "problem";
+       // echo "\nproblem";
         $problems = $this->db->query("SELECT distinct(verifier) as kategori FROM problems");
         $id_problem = array();
         $satu=0;
@@ -192,16 +192,23 @@ class Auth extends MY_Controller {
     
     public function getready(){
         
+        echo "\ntimer\n";
         $startTime = $this->setting->get('start_time');
         $endTime = $this->setting->get('end_time');
-        $currentTime = date("Y/M/d H:i:s");
+        $currentTime = date("Y/m/d H:i:s");
+
+        $diff=date_diff(date_create($endTime),date_create($startTime));
+
+        echo "\nwaktu:".$diff->format('%y/%m/%d %h:%i:%s')."\n";
+        var_dump($diff);
+        
         $this->session->set_userdata('ready', true);
-        var_dump($startTime);
-        var_dump($endTime);
-        var_dump($currentTime);
+        var_dump(strtotime($startTime));
+        var_dump(strtotime($endTime));
+        var_dump(strtotime($currentTime));
         
        if((strtotime($currentTime)>=strtotime($startTime))&&(strtotime($currentTime)<=strtotime($endTime))){
-           echo "boleh kerja";
+            redirect('main');
        }else{
            echo "diluar waktu";
        }

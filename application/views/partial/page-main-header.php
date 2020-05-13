@@ -4,14 +4,11 @@
             <div class="col-md-2 imagecontainer">    
                 <img src="<?php echo base_url()?>/img/logotitle.png" class="logo">
             </div>
-            <!-- <div class="col-md-6" style="text-align:center; padding-top:10px; padding-left:0px">
-                <div style="font-family: Roboto;font-style: normal;font-weight: bold;font-size: 32px;line-height: 42px;padding-bottom: 2px;color: #000000;word-spacing: 3px;">S I Q R I N G</div>
-                <span style="font-family: Roboto;font-style: normal;font-weight: bold;font-size: 10px;line-height: 12px;color: #000000;">SISTEM PENJURIAN SQL BERBASIS DARING</span>
-            </div> -->
+      
         </div>
     </div>
     <div class="col-md-5" style="padding-top:1.2%">
-        <span class="mainlabel">SISA WAKTU : </span><span class="sublabel"> 12:00:00</span>
+        <span class="mainlabel">SISA WAKTU : </span><span class="sublabel" id="time-remains"> 12:00:00</span>
     </div>
     <div class="col-md-2" style="padding-top:1.2%; text-align:center">
         <a href="<?= site_url('auth/logout') ?>" class="pagelogout"><span style="font-family: Roboto;font-style: normal;font-weight: bold;color: #FFFFFF;">Keluar</span></a>
@@ -49,23 +46,9 @@ $(function () {
     var startTime = <?= (strtotime($this->setting->get('start_time'))) ?>;
     var nowTime = <?= (strtotime("now")) ?>;
  
-  //  alert(expireTime); 
-   // alert(new Date().getTime()/1000);
- // alert(Math.round(new Date().getTime()/1000));
+
     var computeInterval = function () {
-     /*   var totalSec = expireTime - parseInt(new Date().getTime() / 1000, 10),
-            hours = parseInt( totalSec / 3600 ) % 24,
-            minutes = parseInt( totalSec / 60 ) % 60,
-            seconds = totalSec % 60,
-            result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
-    
-       
-        if (totalSec > expireTime) {
-            location.reload();
-        } else {
-            elTimeRemains.text(result);
-        }
-        */
+     
         
            var totalSec = expireTime - parseInt(new Date().getTime() / 1000, 10),
             hours = parseInt( totalSec / 3600 ) % 24,

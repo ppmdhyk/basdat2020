@@ -1,6 +1,6 @@
 <?php
 session_start();
-echo "IP: ".$_SERVER['REMOTE_ADDR']."\n";
+//echo "IP: ".$_SERVER['REMOTE_ADDR']."\n";
 //echo "--- TA ---- ".$this->session->userdata('ta');
 /**
  * CodeIgniter

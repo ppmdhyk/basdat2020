@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="col-md-5" style="padding-top:1.2%">
-        <span class="mainlabel">WAKTU SERVER : </span><span class="sublabel"> 22/05/2020 12:00:00</span>
+        <span class="mainlabel">WAKTU SERVER : </span><span class="sublabel" id="time-remains"> 22/05/2020 12:00:00</span>
     </div>
     <div class="col-md-2" style="padding-top:1.2%; text-align:center">
         <a href="<?= site_url('auth/logout') ?>" class="pagelogout"><span style="font-family: Roboto;font-style: normal;font-weight: bold;color: #FFFFFF;">Keluar</span></a>
@@ -45,56 +45,12 @@ $(function () {
 <script type="text/javascript">
 $(function () {
     var elTimeRemains = $('#time-remains');
-    var expireTime = <?= (strtotime($this->setting->get('end_time'))) ?>-25082;
-    var startTime = <?= (strtotime($this->setting->get('start_time'))) ?>;
-    var nowTime = <?= (strtotime("now")) ?>;
+   
+    var nowTime = <?= date("Y/m/d H:i:s") ?>;
  
-  //  alert(expireTime); 
-   // alert(new Date().getTime()/1000);
- // alert(Math.round(new Date().getTime()/1000));
     var computeInterval = function () {
-     /*   var totalSec = expireTime - parseInt(new Date().getTime() / 1000, 10),
-            hours = parseInt( totalSec / 3600 ) % 24,
-            minutes = parseInt( totalSec / 60 ) % 60,
-            seconds = totalSec % 60,
-            result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
     
-       
-        if (totalSec > expireTime) {
-            location.reload();
-        } else {
-            elTimeRemains.text(result);
-        }
-        */
-        
-           var totalSec = expireTime - parseInt(new Date().getTime() / 1000, 10),
-            hours = parseInt( totalSec / 3600 ) % 24,
-            minutes = parseInt( totalSec / 60 ) % 60,
-            seconds = totalSec % 60,
-            result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
-    
-       
-       if (totalSec > expireTime) {
-            location.reload();
-        }
-        else if (totalSec == 0) {
-            alert('Waktu Habis')
-            
-            localStorage.clear();
-            sessionStorage.clear();
-            location.reload();
-           
-            totalSec=100;
-        } else if(totalSec==600){
-            alert('Waktu kurang 10 menit');
-        } else if(totalSec <= 0){
-            result="00:00:00";
-             <?php // session_destroy();?>
-        }
-        else {
-            elTimeRemains.text(result);
-        }
-        
+            elTimeRemains.text(result); 
         
     };
     var interval = setInterval(computeInterval, 1000);

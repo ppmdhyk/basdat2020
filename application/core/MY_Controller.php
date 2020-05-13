@@ -11,7 +11,7 @@ class MY_Controller extends CI_Controller {
 		$this->id = $this->session->userdata('id');
         $this->stdid = $this->session->userdata('stdid');
         $this->isTA = preg_match('/^'. $this->setting->get('ta_ip') .'$/', $_SERVER['REMOTE_ADDR']);
-        echo "Test Account Stat:".$this->isTA." : \n";
+       // echo "Test Account Stat:".$this->isTA." : \n";
     //  $this->isTA = preg_match($this->setting->get('ta_ip') , $this->stdid );
         $this->isTesting = 
             $this->isTA ||
