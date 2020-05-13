@@ -16,13 +16,13 @@
 </div>
 <div class="row" style="padding-top:1%; width:100%;padding-left:50px">
     <div class="col-md-2">
-        <span class="mainlabel">NIM : </span><span class="sublabel"> 164172097</span>
+        <span class="mainlabel">NIM : </span><span class="sublabel"><?= $datastudent[0][stdid] ?></span>
     </div>
     <div class="col-md-4">
         <span class="mainlabel">NAMA : </span><span class="sublabel"> <?= $this->session->userdata('stdid'); ?></span>
     </div>
     <div class="col-md-2">
-        <span class="mainlabel">SKOR : </span><span class="sublabel"> <?= $score ?></span>
+        <span class="mainlabel">SKOR : </span><span class="sublabel"> <?= $datastudent[0][score] ?></span>
     </div>
 </div>
 <!-- <div class="row" style="padding-top:0.5%; width:100%;padding-left:30px">
