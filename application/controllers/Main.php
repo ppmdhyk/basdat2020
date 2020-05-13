@@ -15,6 +15,8 @@ class Main extends MY_Controller {
 	}
 
 	public function index() {
+		if($this->isFinish)  redirect('main/help');
+
         $problems = $this->db->select('P.*, PA.correct, PA.total_submit')
             ->from('problems P')
             ->join('(SELECT problem_id, SUM(is_correct) AS correct, COUNT(*) AS total_submit FROM student_answers GROUP BY problem_id) AS PA', 'P.id = PA.problem_id', 'LEFT')
@@ -42,14 +44,22 @@ class Main extends MY_Controller {
         $score = $this->db->select('score')
             ->from('students')
             ->where('id', $this->id)
-            ->get()->row()->score;
+			->get()->row()->score;
+			
+		$selesai= site_url('main/wesmari');
 
         $this->render('pagemain', 'newmain', [
             'problems' => $problems,
             'answers' => $corrects,
-            'score' => $score
+			'score' => $score,
+			'selesai' => $selesai
 		]);
-		
+		// $this->render('pagemain', 'newmain', [
+        //     'problems' => $problems,
+        //     'answers' => $corrects,
+		// 	'score' => $score
+			
+		// ]);
 		
 	}
 
@@ -373,28 +383,45 @@ class Main extends MY_Controller {
 	}
 
     public function help () {
+		$startTime = $this->setting->get('start_time');
+		$endTime = $this->setting->get('end_time');
+		if(! $this->isTime) {
+			
+			$notif="Sesi belum dimulai. Sesi selanjutnya: ".$startTime." - ".$endTime;
+			
+		}
+		else{
+			$notif="Sesi Dimulai. Waktu sesi: ".$startTime." - ".$endTime;
+			if(! $this->isFinish){
+				$tombol=site_url('main');
+			}else{
+				$notif="Anda telah menyelesaikan sesi";
+			}
+			
+			
+		}
+		
 		$this->render('pagemain', 'newhelp', [
-			'score' => $score
+			'score' => $score, 'notif' => $notif, 'tombol' => $tombol
 		]);
-		// echo "\ndns :".$this->db->dsn;
-		// echo "\nusername :".$this->db->username;
-		// echo "\npass :".$this->db->password;
-		// echo "\ndatabase :".$this->db->database;
+        
+	}
 
-		// $host='localhost';
-		// $dbname='sqljudge_sys';
-		// $user='root';
-		// $pass='';
-		// try {
-		// 	# MS SQL Server and Sybase with PDO_DBLIB   
-		// 	# MySQL with PDO_MYSQL
-		// 	$DBH = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-		 
-		//   }
-		//   catch(PDOException $e) {
-		// 	  echo $e->getMessage();
-		//   }
-    }
+	public function wesmari(){
+		$id=$this->id;
+		$dbtemp=$this->tempdb;
+		$this->session->set_userdata('finish', true);
+		
+		$this->db->query("DELETE FROM random_problems WHERE id_student=$id;");
+		$this->db->query("DROP DATABASE $dbtemp");
+		redirect('main/help');
+
+	}
+
+
+	
+	
+
 }
 /* End of file main.php */
 /* Location: ./application/controllers/main.php */

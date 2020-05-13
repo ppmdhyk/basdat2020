@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DB Judging</title>
+    <title>SIQRING</title>
    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
 

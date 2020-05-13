@@ -42,8 +42,8 @@ $(function () {
 <script type="text/javascript">
 $(function () {
     var elTimeRemains = $('#time-remains');
-    var expireTime = <?= (strtotime($this->setting->get('end_time'))) ?>-25082;
-    var startTime = <?= (strtotime($this->setting->get('start_time'))) ?>;
+    var expireTime = <?= (strtotime($this->setting->get('end_time'))) ?>-18000;
+    var startTime = <?= (strtotime($this->setting->get('start_time'))) ?>-18000;
     var nowTime = <?= (strtotime("now")) ?>;
  
 

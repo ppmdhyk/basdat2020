@@ -10,7 +10,7 @@ class Auth extends MY_Controller {
         if (! $this->isTesting) {
 			$startTime = $this->setting->get('start_time');
 			$endTime = $this->setting->get('end_time');
-            return "out of testing time ($startTime - $endTime)";
+            return "Belum ada akses untuk masuk";
         }
         if (! $this->input->post('stdid') OR ! $this->input->post('email'))
             return '';
@@ -24,7 +24,7 @@ class Auth extends MY_Controller {
             $this->logger->log("login failed, stdid: $stdid, email: $email", 'auth');
            
         }
-        return $okay === '1' ? True : 'Wrong student ID or Email';
+        return $okay === '1' ? True : 'Username atau Password Salah';
     }
 
     private function _login () {
@@ -53,7 +53,7 @@ class Auth extends MY_Controller {
 
         if (True === ($result = $this->_login_check())) {
            $this->_login();
-          redirect('main/help', 'refresh');
+           redirect('main/help', 'refresh');
         } else {
             $this->render('newmain', 'newlogin', ['errors' => $result]);
         }
@@ -78,6 +78,7 @@ class Auth extends MY_Controller {
 			$dbname = uniqid($prefix);
 			if($this->db->query("CREATE DATABASE $dbname"))
             $this->session->set_userdata('db_temp', $dbname);
+            $this->session->set_userdata('finish', false);
             $flag=1;
            try{
             $pdo = new PDO('mysql:host=localhost;dbname='.$dbname,$this->db->username,$this->db->password);
@@ -190,29 +191,7 @@ class Auth extends MY_Controller {
 
     }
     
-    public function getready(){
-        
-        echo "\ntimer\n";
-        $startTime = $this->setting->get('start_time');
-        $endTime = $this->setting->get('end_time');
-        $currentTime = date("Y/m/d H:i:s");
-
-        $diff=date_diff(date_create($endTime),date_create($startTime));
-
-        echo "\nwaktu:".$diff->format('%y/%m/%d %h:%i:%s')."\n";
-        var_dump($diff);
-        
-        $this->session->set_userdata('ready', true);
-        var_dump(strtotime($startTime));
-        var_dump(strtotime($endTime));
-        var_dump(strtotime($currentTime));
-        
-       if((strtotime($currentTime)>=strtotime($startTime))&&(strtotime($currentTime)<=strtotime($endTime))){
-            redirect('main');
-       }else{
-           echo "diluar waktu";
-       }
-    }
+   
 
 }
 /* End of file auth.php */

@@ -11,15 +11,17 @@ class MY_Controller extends CI_Controller {
 		$this->id = $this->session->userdata('id');
         $this->stdid = $this->session->userdata('stdid');
         $this->isTA = preg_match('/^'. $this->setting->get('ta_ip') .'$/', $_SERVER['REMOTE_ADDR']);
-       // echo "Test Account Stat:".$this->isTA." : \n";
-    //  $this->isTA = preg_match($this->setting->get('ta_ip') , $this->stdid );
+        $this->tempdb = $this->session->userdata('db_temp') ;
+        $this->isFinish = $this->session->userdata('finish') ;
+        $this->isTime = time() >= (strtotime($this->setting->get('start_time'))-18000)
+            && time() <= (strtotime($this->setting->get('end_time'))-18000);
         $this->isTesting = 
-            $this->isTA ||
-            time() >= strtotime($this->setting->get('start_time'))
-            && time() <= strtotime($this->setting->get('end_time'));
+        $this->isTA ||$this->setting->get('activated')!=null;
+        
+
 
         // lock check
-        
+       // if (!$this->isTesting && $this->id && $this->uri->segment(1) != 'auth') {
         if (!$this->isTesting && $this->id && $this->uri->segment(1) != 'auth') {
             $locked = $this->db->select('lock_hash')->from('students')->where('id', $this->id)->get()->row()->lock_hash !== $this->session->userdata('lock_hash');
             if ($locked) {

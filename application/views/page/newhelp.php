@@ -1,7 +1,7 @@
 <?php $this->load->view('partial/new-main-header', ['score' => $score]); ?>
 <div class="helpmain">
     <div class="row" style="padding-top:0.5%; width:100%;padding-left:30px">
-        <div class="announcement">Announcements: <?= $this->setting->get('announcement') ?></div>
+      <div class="announcement"> <?= $notif ?></div> 
     </div>
     <br>
     <strong style="padding-left: 1.5%;">HAL-HAL YANG PERLU DIPERHATIKAN !</strong>
@@ -18,9 +18,16 @@
         <li>Tekan tombol <strong>“Selesai”</strong> untuk menyatakan bahwa pengerjaan soal telah selesai dan jawaban tidak dapat diubah kembali.</li>
         <li>Jika waktu telah habis, maka jawaban otomatis tidak dapat diubah kembali (Selesai).</li>
     </ol>
-    <div style="text-align:center"><a href="<?= site_url('main') ?>" class="ready">Mulai</a></div>
-    <?= form_open('auth/getready', ['class'=>'form', 'method' => 'post']) ?>
-    <button type="submit" class="ready">Mulai</button>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="text-align:center"><a href="<?= $tombol ?>" class="ready">Mulai</a></div>
+    <br>
+    <br>
+    <br>
+    
 </div>
-<!-- <?= $this->setting->get('help') ?> -->
+
    

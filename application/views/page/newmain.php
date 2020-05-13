@@ -42,7 +42,7 @@
 </table>
 </div>
 <br>
-<div style="text-align:center"><a class="done">Selesai</a></div>
+<div style="text-align:center"><a href="<?= $selesai ?>"class="done">Selesai</a></div>
 <script>
    $(document).ready(function() {
     $('#example').DataTable( {
