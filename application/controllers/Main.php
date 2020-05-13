@@ -71,7 +71,7 @@ class Main extends MY_Controller {
             
 		}
 
-		echo "masuk problem :".$id."\n";
+		
 		$problem = $this->problem;
 		$inputSQL = $this->input->post('query');
 
@@ -121,7 +121,7 @@ class Main extends MY_Controller {
 
         $solved = $answer->is_correct == '1';
         $massage="problem id: ".$id." ";
-      
+		
         $this->render('pagemain', 'newproblem', [
             'problem' => $problem,
             'answer' => $answer,
@@ -130,12 +130,13 @@ class Main extends MY_Controller {
             'result' => $result,
 			'test_schema' => $this->getTestSchema(),
 			'test_tables' => $this->getTestData(),
-			'test_result' => $this->getReferenceResultData(),
+			//'test_result' => $this->getReferenceResultData(),
             'score' => $this->db->select('score')
                 ->from('students')
                 ->where('id', $this->id)
                 ->get()->row()->score
-            ]);
+			]);
+			
 	}
 
 	public function cleanUp(){
@@ -295,16 +296,21 @@ class Main extends MY_Controller {
 		// create test database
 		$temp_db = $template;
 		// run correct answer with test user
+		echo "db  : ".$temp_db;	
 		try{
-		$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, $this->db->username,  $this->db->password);
+			$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'testsql',  '');
+		
 		}
 		catch(PDOException $e) {
 
 		    echo "pesan ".$e;
 		}
+		
 		$result = $this->getResult($pdo, '', true);
-
+		echo "db  : ".$temp_db;	
 		return $result->data;
+
+
 	}
 
 	private function getUserResult($sql, $judge_mode = false){
@@ -348,6 +354,7 @@ class Main extends MY_Controller {
 
 	// numeric_keys is used under judge mode
 	private function getResult($pdo, $sql = '', $use_verifier_result=false){
+		
 		$result = (object)['data' => [], 'error' => false];
 		$i = -1; // query line
 		if(empty($sql))
@@ -356,7 +363,7 @@ class Main extends MY_Controller {
 		$pdo->exec("SET SESSION sql_mode='ANSI,STRICT_ALL_TABLES';");
 		$stmt = $pdo->query($sql);
 		$error = $pdo->errorInfo();
-
+	
 		if($stmt !== FALSE){
 			$result->affected = [];
 			do{
@@ -378,7 +385,7 @@ class Main extends MY_Controller {
 				return $result;
 			}
 		}
-
+		
 		$result->error = "$error[1]: $error[2]";
 		return $result;
 	}
