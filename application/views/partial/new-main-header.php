@@ -44,17 +44,13 @@ $(function () {
 <?php endif; ?>
 <script type="text/javascript">
 $(function () {
-    var elTimeRemains = $('#time-remains');
-   
-    var nowTime = <?= date("Y/m/d H:i:s") ?>;
- 
-    var computeInterval = function () {
-    
-            elTimeRemains.text(result); 
-        
-    };
-    var interval = setInterval(computeInterval, 1000);
-    computeInterval();
+    var myVar = setInterval(myTimer, 1000);
+
+    function myTimer() {
+        var today = new Date();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        document.getElementById("time-remains").innerHTML = time;
+    }
 
     $('#unlock-btn').click(function () {
         var stdid = prompt('student id');
