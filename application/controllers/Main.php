@@ -134,9 +134,15 @@ class Main extends MY_Controller {
 				'is_correct' => false];
 
         $solved = $answer->is_correct == '1';
-        $massage="problem id: ".$id." ";
+		$massage="problem id: ".$id." ";
+		
+		$datastudent = $this->db->select('score, stdid')
+		->from('students')
+		->where('id', $this->id)
+		->get()->result_array();
 		
         $this->render('pagemain', 'newproblem', [
+			'datastudent' => $datastudent,
             'problem' => $problem,
             'answer' => $answer,
             'query' => ($inputSQL) ? $inputSQL : $answer->answer,
