@@ -400,11 +400,15 @@ class Main extends MY_Controller {
 			
 			
 		}
+
+		$datastudent = $this->db->select('score, stdid')
+		->from('students')
+		->where('id', $this->id)
+		->get()->result_array();
 		
 		$this->render('pagemain', 'newhelp', [
-			'score' => $score, 'notif' => $notif, 'tombol' => $tombol
+			'datastudent' => $datastudent, 'notif' => $notif, 'tombol' => $tombol
 		]);
-        
 	}
 
 	public function wesmari(){

@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="col-md-5" style="padding-top:1.2%">
-        <span class="mainlabel">WAKTU SERVER : </span><span class="sublabel" id="time-remains"> 22/05/2020 12:00:00</span>
+        <span class="mainlabel">WAKTU SERVER : </span><span class="sublabel" id="time-remains"></span>
     </div>
     <div class="col-md-2" style="padding-top:1.2%; text-align:center">
         <a href="<?= site_url('auth/logout') ?>" class="pagelogout"><span style="font-family: Roboto;font-style: normal;font-weight: bold;color: #FFFFFF;">Keluar</span></a>
@@ -19,13 +19,13 @@
 </div>
 <div class="row" style="padding-top:1%; width:100%;padding-left:50px">
     <div class="col-md-2">
-        <span class="mainlabel">NIM : </span><span class="sublabel"> 164172097</span>
+        <span class="mainlabel">NIM : </span><span class="sublabel"> <?= $datastudent[0][stdid] ?></span>
     </div>
     <div class="col-md-4">
         <span class="mainlabel">NAMA : </span><span class="sublabel"> <?= $this->session->userdata('stdid'); ?></span>
     </div>
     <div class="col-md-2">
-        <span class="mainlabel">SKOR : </span><span class="sublabel"> <?= $score ?></span>
+        <span class="mainlabel">SKOR : </span><span class="sublabel"> <?= $datastudent[0][score] ?></span>
     </div>
 </div>
 <!-- <div class="row" style="padding-top:0.5%; width:100%;padding-left:30px">
@@ -48,8 +48,10 @@ $(function () {
 
     function myTimer() {
         var today = new Date();
+        var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        document.getElementById("time-remains").innerHTML = time;
+        var dateTime = date+'  '+time;
+        document.getElementById("time-remains").innerHTML = dateTime;
     }
 
     $('#unlock-btn').click(function () {
