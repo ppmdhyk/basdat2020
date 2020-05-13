@@ -12,7 +12,7 @@
             <?php endforeach; ?>
         </tr>
     </thead>
-    <tbody>
+    <tbody style="display:none">
         <?php foreach ($table as $row): ?>
         <tr>
             <?php foreach ($row as $data): ?>

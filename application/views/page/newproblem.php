@@ -19,7 +19,7 @@
             <div class="problemrow">
                 <span class="problemspantitle">Tabel Jawaban</span><span class="problemspansubtitle">Tampilan tabel yang diinginkan</span>
                 <div class="problemcontainer">
-                                <?php $this->load->view('partial/table', ['table' => $test_result, 'schema' => false]); ?>
+                    <?php $this->load->view('partial/table', ['table' => $test_result, 'schema' => false]); ?>
                 </div> 
             </div>
             <div class="problemrow">
@@ -57,52 +57,61 @@
                         
                     });
                     */
-                    $(function() {
-                    var el2 = $('button.fold').attr('data-target');
-                    $(el2).find('tbody').toggle(20); 
-                    var flag=1;
-                    // alert("bagian awal"); 
-                    var $el = $('.dbtables');
-                    if ($el.width() < $el.get(0).scrollWidth)
-                            $('.dbtables').doubleScroll({contentElement: $('.dbtables')});
+                    // $(function() {
+                    // var el2 = $('button.fold').attr('data-target');
+                    // $(el2).find('tbody').toggle(20); 
+                    // var flag=1;
+                    // // alert("bagian awal"); 
+                    // var $el = $('.dbtables');
+                    // if ($el.width() < $el.get(0).scrollWidth)
+                    //         $('.dbtables').doubleScroll({contentElement: $('.dbtables')});
                     
-                    $('button.fold').click(function () {
-                        /*
-                            if(flag==1){
-                                alert("flag 1");
-                                flag=2;
-                                $(el2).show();
-                            }else{
-                                alert("flag 2");
-                                flag=1;
-                                $(el2).hide();
-                        }
-                        */
+                    // $('button.fold').click(function () {
+                    //     /*
+                    //         if(flag==1){
+                    //             alert("flag 1");
+                    //             flag=2;
+                    //             $(el2).show();
+                    //         }else{
+                    //             alert("flag 2");
+                    //             flag=1;
+                    //             $(el2).hide();
+                    //     }
+                    //     */
                         
                             
-                            var el = $(this).attr('data-target'),
-                            span = $(this).find('span');
-                            //alert(el);
-                            if(flag==1){
-                            //  alert("flag 1");
-                                flag=2;
-                                $(el).find('tbody').toggle(20); 
-                                //$(el2).show();
-                            }else{
-                                // alert("flag 2");
-                                flag=1;
-                                $(el).find('tbody').toggle(20);
-                                //$(el2).hide();
-                        }
+                    //         var el = $(this).attr('data-target'),
+                    //         span = $(this).find('span');
+                    //         //alert(el);
+                    //         if(flag==1){
+                    //         //  alert("flag 1");
+                    //             flag=2;
+                    //             $(el).find('tbody').toggle(20); 
+                    //             //$(el2).show();
+                    //         }else{
+                    //             // alert("flag 2");
+                    //             flag=1;
+                    //             $(el).find('tbody').toggle(20);
+                    //             //$(el2).hide();
+                    //     }
                             
-                            var css = span.hasClass('glyphicon-minus') ? 'glyphicon-plus' : 'glyphicon-minus';
-                            span.attr('class', 'glyphicon ' + css);
+                    //         var css = span.hasClass('glyphicon-minus') ? 'glyphicon-plus' : 'glyphicon-minus';
+                    //         span.attr('class', 'glyphicon ' + css);
                             
                         
-                    });
-                    // alert("bagian akhir"); 
-                    $('.folded tbody').hide();
+                    // });
+                    // // alert("bagian akhir"); 
+                    // $('.folded tbody').hide();
                         
+                    // });
+
+                    $('button.fold').click(function () { 
+                        var el = $(this).attr('data-target');
+                        var tbody = $(el).find('tbody');
+                        var span = $(this).find('span');
+                        tbody.toggle(20);
+                        var css = span.hasClass('glyphicon-minus') ? 'glyphicon-plus' : 'glyphicon-minus';
+                        span.attr('class', 'glyphicon ' + css);
                     });
             </script>
         </div>
