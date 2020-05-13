@@ -17,11 +17,18 @@ class Main extends MY_Controller {
 	public function index() {
 		if($this->isFinish)  redirect('main/help');
 
-        $problems = $this->db->select('P.*, PA.correct, PA.total_submit')
-            ->from('problems P')
-            ->join('(SELECT problem_id, SUM(is_correct) AS correct, COUNT(*) AS total_submit FROM student_answers GROUP BY problem_id) AS PA', 'P.id = PA.problem_id', 'LEFT')
-            ->order_by('order')
-		    ->get()->result();
+        // $problems = $this->db->select('P.*, PA.correct, PA.total_submit')
+        //     ->from('problems P')
+		// 	->join('(SELECT problem_id, SUM(is_correct) AS correct, COUNT(*) AS total_submit FROM student_answers GROUP BY problem_id) AS PA', 'P.id = PA.problem_id', 'LEFT')
+		// 	->join('random_problems rp','rp.problem_id = P.id')
+		// 	->where('rp.id_student = ', '4')
+        //     ->order_by('order')
+		//     ->get()->result();
+
+		$query = $this->db->query("SELECT P.*, PA.correct, PA.total_submit FROM problems as P LEFT JOIN (SELECT problem_id, SUM(is_correct) AS correct, COUNT(*) AS total_submit FROM student_answers GROUP BY problem_id) AS PA ON P.id = PA.problem_id INNER JOIN random_problems as rp ON p.id = rp.id_problem WHERE rp.id_student = ".$this->id);
+		$problems = $query->result();
+
+		//(pure query untuk diatas) = SELECT P.*, PA.correct, PA.total_submit FROM problems as P LEFT JOIN (SELECT problem_id, SUM(is_correct) AS correct, COUNT(*) AS total_submit FROM student_answers GROUP BY problem_id) AS PA ON P.id = PA.problem_id INNER JOIN random_problems as rp ON p.id = rp.id_problem WHERE rp.id_student = 1
 		
 		// $problems = $this->db->select('P.*, PA.correct, PA.total_submit')
 		// ->from('problems P')
@@ -48,12 +55,19 @@ class Main extends MY_Controller {
 			
 		$selesai= site_url('main/wesmari');
 
+		$datastudent = $this->db->select('score, stdid')
+		->from('students')
+		->where('id', $this->id)
+		->get()->result_array();
+
         $this->render('pagemain', 'newmain', [
             'problems' => $problems,
             'answers' => $corrects,
 			'score' => $score,
-			'selesai' => $selesai
+			'selesai' => $selesai,
+			'datastudent' => $datastudent
 		]);
+
 		// $this->render('pagemain', 'newmain', [
         //     'problems' => $problems,
         //     'answers' => $corrects,
