@@ -166,7 +166,7 @@
             </div>
             </form>
         </div>
-        <div id="result" class="block">
+        <div id="result" class="problemcontainer">
             <h2>Hasil <small>Hasil cek syntax query SQL</small></h2>
 			<?php if (isset($result->error)): ?>
                 <?php if($result->error): ?>
@@ -180,7 +180,7 @@
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if ($result->type == 'test'): ?>
-                    <?php ! $result->error && $this->load->view('partial/table', ['table' => $result->data, 'schema' => false]); ?>
+                    <?php ! $result->error && $this->load->view('partial/result-table', ['table' => $result->data, 'schema' => false]); ?>
                 <?php endif; ?>
             <?php endif; ?>
         </div>

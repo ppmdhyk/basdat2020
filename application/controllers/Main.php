@@ -150,13 +150,12 @@ class Main extends MY_Controller {
             'result' => $result,
 			'test_schema' => $this->getTestSchema(),
 			'test_tables' => $this->getTestData(),
-			//'test_result' => $this->getReferenceResultData(),
+			// 'test_result' => $this->getReferenceResultData(),
             'score' => $this->db->select('score')
                 ->from('students')
                 ->where('id', $this->id)
                 ->get()->row()->score
 			]);
-			
 	}
 
 	public function cleanUp(){
