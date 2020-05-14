@@ -311,32 +311,57 @@ class Main extends MY_Controller {
 	}
 
 	private function getReferenceResultData($judge_mode = false){
+		/*
+			$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;
 	
-		$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;      
-		// create test database
-		$temp_db = $template;
-		// run correct answer with test user
-		echo "db  : ".$temp_db;	
-		try{
+			// create test database
+			$temp_db = $this->createTempDatabase($template);
+	
+			// run correct answer with test user
+			$pdo = new PDO('mysql:host='.SQLJUDGE_DB_HOST.';dbname='.$temp_db, SQLJUDGE_DB_TEST_USER, SQLJUDGE_DB_TEST_PASS);
+			$result = $this->getResult($pdo, '', true);
+	
+			// delete temp database
+			$this->dropDatabase($temp_db);
+	
+			return $result->data;
+		*/
+			$template = ($judge_mode)? $this->problem->judge_db : $this->problem->test_db;
+	
+		  
+			// create test database
+			$temp_db = $template;
+	
+			// run correct answer with test user
+			try{
 			$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'testsql',  '');
+			}
+			catch(PDOException $e) {
+			
+				echo "pesan ".$e;
+			}
+			$result = $this->getResult($pdo, '', true);
+	
+			// delete temp database
+		//	$this->dropDatabase($temp_db);
+		   
+		  //  echo "judge mode: ".$judge_mode."\n";
+		  //  echo "template: ".$template."\n";
+		  //  echo "host: ".SQLJUDGE_DB_HOST."\n";
+		   // echo "user: ".SQLJUDGE_DB_TEST_USER."\n";
+		  //  echo "pass: ".SQLJUDGE_DB_TEST_PASS."\n";
+	
+			return $result->data;
+			
+			 
+		
 		
 		}
-		catch(PDOException $e) {
-
-		    echo "pesan ".$e;
-		}
-		
-		$result = $this->getResult($pdo, '', true);
-		echo "db  : ".$temp_db;	
-		return $result->data;
-
-
-	}
 
 	private function getUserResult($sql, $judge_mode = false){
 		
         $temp_db=$this->problem->temp_db;
-		echo "temp_db: ".$temp_db;
+		
 		try{
 			$pdo = new PDO('mysql:host=localhost;dbname='.$temp_db, 'testsql',  '');
 		}
