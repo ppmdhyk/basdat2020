@@ -23,9 +23,8 @@
                 </div> 
             </div>
             <div class="problemrow">
-                <span class="problemspantitle">Tabel Sumber</span><span class="problemspansubtitle">Tampilan tabel yang diinginkan</span>
-                <div class="block">
-                    <h2>Tables <small>Tabel yang digunakan untuk menyelesaikan misi ini(gunakan semua tabel yang ada dibawah ini)</small></h2>
+                <span class="problemspantitle">Tabel Sumber</span><span class="problemspansubtitle">Daftar tabel sumber yang harus digunakan</span>
+                <div class="problemcontainer">
                     <div class="dbtables">
                     <?php foreach ($test_tables as $tableName => $table): ?>
                         <hr>
@@ -135,8 +134,8 @@
             </div>
         </div> -->
         <div class="col-md-6">
-        <div id="sql" class="block">
-            <h2>Console <small>Tulis jawaban Query SQL disini</small></h2>
+        <div id="sql" class="problemcontainer">
+            <h2>Console <small>Tempat menuliskan jawaban syntax query SQL</small></h2>
             <?= form_open('main/problem/' . $problem->id, ['id'=>'form-sql','method' => 'post', 'data-pjax' => 'true']) ?>
             <div class="row">
                 <div class="col-md-12 form-group">
@@ -145,10 +144,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12 form-group">
-                <div class="pull-right">
+                <div style="text-align: center" style="width:100%">
                     <input type="hidden" name="type">
-                    <input id="test-sql" type="button" class="btn btn-default" value="Test">
-                    <input id="submit-sql" type="button" class="btn btn-success" value="Submit">
+                    <input id="test-sql" type="button" class="btntestsql" value="Cek SQL" style="background: #E28C4D;border: 1px solid #DEDEDE;box-sizing: border-box; border-radius: 20px;margin-top: 1%;width: 30%;font-family: Roboto;font-style: normal;font-weight: bold;font-size: 14px;line-height: 14px;color: #FFFFFF; padding: 10px 10px 10px 10px">
+                    <input id="submit-sql" type="button" class="btnsubmitsql" value="Simpan Jawaban" style="background: #5FA048;border: 1px solid #DEDEDE;box-sizing: border-box; border-radius: 20px;margin-top: 1%;width: 30%;font-family: Roboto;font-style: normal;font-weight: bold;font-size: 14px;line-height: 14px;color: #FFFFFF; padding: 10px 10px 10px 10px">
                     <input id="submit-btn" type="submit" style="display:none">
                     <script type="text/javascript">
                         $(function () {
@@ -168,16 +167,16 @@
             </form>
         </div>
         <div id="result" class="block">
-            <h2>Result <small>Testing result will display here</small></h2>
+            <h2>Hasil <small>Hasil cek syntax query SQL</small></h2>
 			<?php if (isset($result->error)): ?>
                 <?php if($result->error): ?>
                 <div class="alert alert-danger">Database error: <?= $result->error ?></div>
                 <?php endif; ?>
                 <?php if($result->type == "judge"): ?>
                     <?php if($result->is_correct): ?>
-                        <div class="alert alert-success">Your answer is correct! please answer the next question <a href="<?= site_url('main') ?>">Go Back</a>.</div>
+                        <div class="alert alert-success">Jawaban Kamu Benar. Silahkan menuju soal selanjutnya <a href="<?= site_url('main') ?>">Go Back</a>.</div>
                     <?php else: ?>
-                        <div class="alert alert-danger">Your answer is wrong.</div>
+                        <div class="alert alert-danger">Jawaban Kamu Salah.</div>
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if ($result->type == 'test'): ?>
